@@ -1,0 +1,3 @@
+#.gitignore for Projct "KMBaseApp", in subdir "app".
+
+/build

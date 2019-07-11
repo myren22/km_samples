@@ -1,0 +1,89 @@
+In organizing this repository, it is meant to be easy to
+    -open current files in an IDE
+    -write new files
+    -find current files, and discern their dependancies
+    -separate entirely unrelated files.
+    
+For example, the main set of files that form the foundation of the repository are python files in an eclipse project.
+Most* files do not rely on others. Eclipse as an IDE has no bearing on the execution of the files. Merely added formatting and debuging.
+However IDEs, like eclipse, always create .project files. These can be important, but generally they are just a bunch of defaults.
+
+I want it to be clear which directory the user should open for an IDE project file. As such I will be committing the .project files,
+but I intend to have a readme in each directory indictating what should be done\expected in that directory.
+
+Additionally, Android+Java projects involve a great deal of folders to click through.
+The basic android studio project has at least 9-10 levels of folders. 
+These are:
+    Project\app\src\main\java\com\companyname\*optional "android"*\appname\javaFile.java
+    1      \ 2 \ 3 \ 4  \ 5  \ 6 \ 7         \ 8                  \ 9     \ 10
+Some ATAK Plugin reduce this with a format of:  [app, java, & main, have been removed.]
+    helloworld\src\com\atakmap\android\helloworld\plugin
+    1         \ 2 \ 3 \ 4     \ 5     \ 6        \ 7 
+shortcuts from the project to \java\ and \appname dirs would eliminate many unnecessary clicks.
+
+
+
+A rough file structure planned is:
+
+
+****Ideal****
+Language[Python]
+    Project
+        Files\Packages
+Language[Android]
+    AppName
+    
+        
+****In Practice****
+km_python3
+    km_standalones
+    km_utils
+    km_pairedExecutables
+km_android    
+    RFAnalyzer
+        \app
+            \src
+                \main
+                    \java
+                        \com
+                            \mantz_it
+                                \rfanalyzer             
+    MyClientActivity
+        \app
+            \src
+                \main
+                    \java
+                        \com
+                            \atakmap
+                                \android
+                                    \myclientactivity
+                                        \MainActivity.java                                                    
+    ServerSocketApp
+        \app
+            \src
+                \main
+                    \java
+                        \com
+                            \atakmap
+                                \android
+                                    \serversocketapp                                                    
+                                                    
+Android & Java naming gets confusing due to the nested url style naming conventions.
+Changing a name has cascading effects, as filenames are hardcoded in locations several removed.
+Applications get an "application id" which is a descriptive name of owner and app.
+Ex: "com.example.myapp"
+"   "com.mantz_it.rfanalyzer"
+    "com.atakmap.android.myclientactivity"
+    "com.atakmap.android.wisard"
+    
+
+
+C:\_KM_root_lap\SW_Gitpulls\km_samples\km_android\KM_GoogleMaps
+
+
+
+Abbreviations: 
+    -km_ 
+    -kgm_
+    -ex
+    -py

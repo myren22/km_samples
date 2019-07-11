@@ -1,0 +1,24 @@
+#.gitignore for project "KMBaseApp"
+
+######  Gitignore common formats
+### https://git-scm.com/docs/gitignore
+### Example Terms for below: rootDir/subDir/exFile.ext 
+# C:/rootDir/subDir/exFile.ext      | Ignore exact filename
+# *.ext         | Ignore all files with that extension
+# subDir/       | Ignore subDir AND everything beneath subDir (because all of those would contain that substring)
+# /subDir/      | Ignore IF in same dir as .gitignore, the target subDir and its contents.
+#####
+
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
