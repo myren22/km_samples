@@ -1,0 +1,30 @@
+#### Batch files are programs that run a series of commmand line instructions
+
+Command | Description
+#####################
+echo    |   Prints out the input string.
+pause   |   Used to stop the execution of Windows batch file.
+cls     |   Clears the command prompt screen.
+title   |   Changes the title text displayed on top of prompt window.
+>>      |   Used to pipe the output of a command to a text file. 
+            Ex:  echo "String to place in file" >> aNewFile.txt
+
+
+Types of “batch” files in windows
+
+INI (*.ini) – Initalization file. These set the default variables for the system and programs.
+CFG (*.cfg) – These are the configuration files.
+SYS (*.sys) – System files, can sometimes be edited, mostly compiled machine code in new versions.
+COM (*.com) – Command files. These are the executable files for all the DOS commands. 
+                In early versions there was a seperate file for each command. Now, most are inside COMMAND.COM.
+CDM (*.cmd) – These were the batch files used in NT operating systems.
+
+
+Terminals CMDs run by python:
+    If python runs patch, it can do it without a console, but then issues are difficult to track. If a command
+opens a new console, runs the command, then closes the console on success that is optimal.
+
+This is a command that can be run by python to open a console, change dir to where notepad++ is, run notepad++
+with a line number and file to move to, then close.
+    
+    start cmd /k "cd C:\Program Files\Notepad++ & notepad++.exe -n600 C:\_KM_root_lap\Docs_ENG_Project\engPlotter_2019-06-07.py & exit"
