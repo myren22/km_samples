@@ -1,4 +1,4 @@
-package ex_Java18;
+package ex_java18;
 
 import java.io.*;
 import java.net.*;
@@ -60,10 +60,16 @@ class TCPClient_v2 {
 			int errorCode = inFromServer.readInt();    
 			int elementsNum = inFromServer.readInt();    
 			
+			long length_l = Integer.toUnsignedLong(length);
+			long type_l = Integer.toUnsignedLong(type);
+			long errorCode_l = Integer.toUnsignedLong(errorCode);
+			long elementsNum_l = Integer.toUnsignedLong(elementsNum);
+			
 			int length_u = inFromServer.readInt()  & 0xFF;                    // read length of incoming message
 			int type_u = inFromServer.readInt() & 0xFF;    
 			int errorCode_u = inFromServer.readInt() & 0xFF;    
 			int elementsNum_u = inFromServer.readInt() & 0xFF;    
+			
 			if(length>0) {
 				System.out.println("start length parse:"+length);
 			    byte[] message = new byte[length];
@@ -78,12 +84,37 @@ class TCPClient_v2 {
 			    System.out.println("elementsNum:"+ elementsNum);
 			    System.out.println("Message:"+message);
 			    
+			    System.out.println("l Size/Length2: "+ length_l);
+			    System.out.println("l Type:"+ type_l);
+			    System.out.println("l errorCode:"+ errorCode_l);
+			    System.out.println("l elementsNum:"+ elementsNum_l);
+			    
 
 			    System.out.println("U Size/Length2: "+ length_u);
 			    System.out.println("U Type:"+ type_u);
 			    System.out.println("U errorCode:"+ errorCode_u);
 			    System.out.println("U elementsNum:"+ elementsNum_u);
 			    System.out.println("U Message:"+message+"\n");
+			    if (type_l == 2) {
+			    	System.out.println("Type==2 :: BPL_LCU_STATE");
+			    	long bandIndex, startFreq_100Hz, stopFreq_100Hz, state, stateset, ncType, dsaType, decisionConfidence;
+			    	int spectrumQuality_dBofLCU, averagePower_dBmOfLCU, maximumPower_dBmOfLCU;
+			    	long stdPower_dBofLCU, lcuScore;
+			    	bandIndex = Integer.toUnsignedLong(inFromServer.readInt());
+			    	startFreq_100Hz = Integer.toUnsignedLong(inFromServer.readInt());
+			    	stopFreq_100Hz = Integer.toUnsignedLong(inFromServer.readInt());
+			    	state = Integer.toUnsignedLong(inFromServer.readInt());
+			    	state = Integer.toUnsignedLong(inFromServer.readInt());
+			    	ncType = Integer.toUnsignedLong(inFromServer.readInt());
+			    	dsaType = Integer.toUnsignedLong(inFromServer.readInt());
+			    	decisionConfidence = Integer.toUnsignedLong(inFromServer.readInt());
+			    	spectrumQuality_dBofLCU = inFromServer.readInt();
+			    	averagePower_dBmOfLCU = inFromServer.readInt();
+			    	maximumPower_dBmOfLCU = inFromServer.readInt();
+			    	stdPower_dBofLCU = Integer.toUnsignedLong(inFromServer.readInt());
+			    	stdPower_dBofLCU = Integer.toUnsignedLong(inFromServer.readInt());
+			    	System.out.println("Values! \n");
+			    }
 			}
 			
 			count++;
@@ -129,6 +160,90 @@ class TCPClient_v2 {
 //	    BPL_DSA_STATE(1),BPL_LCU_CONFIG,
 //	    
 //	}
+	public class MsgDsaSate{
+		private static final int byteSize = 4; 
+		public long state;
+	}
+	public class MsgLcuConfig{
+		private static final int byteSize = 28; 
+		private static final int DSA_MAX_FREQ_BANDS = 400;
+		//ByteSize * MAX BANDS = 11200
+		public long bandId, bandIndex, lcuStart, lcuNum, freqStart_100Hz, freqSize_Hz, freqStep_Hz;
+		
+	}
+	public class MsgLcuSate{
+		private static final int byteSize = 56;
+		private static final int MAX_LCUS_PER_BPL_MSG = 160; 
+		public long bandIndex, startFreq_100Hz, stopFreq_100Hz, state, stateset, ncType, dsaType, decisionConfidence;
+    	public int spectrumQuality_dBofLCU, averagePower_dBmOfLCU, maximumPower_dBmOfLCU;
+    	public long stdPower_dBofLCU, lcuScore;
+	}
+	public class MsgConnectionRadioChannel{
+		private static final int byteSize = 452; 
+		public long connectionId; 		//from UINT32 to long
+		
+		//originally part of MessageRadioChannel_s
+		//from UINT32 to long
+		public long bandIndex, channelIndex, lcuIndex, channelNumber, centerFreq_100Hz, freqSize_Hz, channelFlags;  
+	}
+	public class MsgConnectionChannelDescriptors{
+		private static final int byteSize = 324; 
+		//from UINT32 to long
+		public long connectionId;
+		
+		//originally part of BPL_MessageChannelDescriptor_s
+		//types converted from USHORT to int.
+		public int channelIndex, lcuIndex, bandIndex, channelType, channelState;		
+	}
+	public class MsgConnectionState{
+		private static final int byteSize = 20; 
+		public long a1, aa2;
+		public int a3;
+		public long a4, a5;
+	}
+	public class MsgGroupState{
+		private static final int byteSize = 31; 
+		//Originally struct NODEID_NET_ADDR, USHORT->int	
+		
+		//nodeId, connectionId, globalGroupId, state, topology, numberOfMembers, localMemberStrength, reportedMemberStrength,
+        //reportedMasterStrength, localCommonalityIndex, reportedCommonalityIndex, numGroupsParticipatingIn, nonMembersNum, masterNodeId, masterBackupNodeId, eventNumber
+		
+	}
+	public class ModemNetworkInfo{
+		private static final int byteSize = 126; 
+		//nodeType, NetAddr[MAC_ADDR_LENGTH], fpgaBuildTime, fpgaRev, rfBoardId, DspVersion, boardType, VersionInfo
+	}
+	public class MessageSecurityMode{
+		private static final int byteSize = 4; 
+		//mode
+	}
+	public class MessageLcuRssi{
+		private static final int byteSize = 26;
+		private static final int MAX_LCUS_PER_BPL_MSG = 160; 
+		//ByteSize * MAX LCUS = 10400
+		//lcuIdx, bandIdx, rssi_dBm, freqStart_100Hz, freqStop_100Hz, ncTypeMask, dsaTypeMask
+	}
+	public class SetWorkingChannel{
+		private static final int byteSize = 12; 
+		//channelNum, connectionId, fixedChannel
+	}
+	public class ManageConnection{
+		private static final int byteSize = 8; 
+		//action, connectionId, 
+	}
+	public class MessageSetTxFrequency{
+		private static final int byteSize = 8; 
+		//frequency_100Hz, waitForComplete, 
+	}
+	public class MessageSetTxRx{
+		private static final int byteSize = 16;
+		//bitMapTx, bitMapRx, connectionId, waitforCompletion_Debug
+	}
+	public class txPower_dBm{
+		private static final int byteSize = 4; 
+		public long txPower_dBm;
+	}
+	
 	public enum BPL_MessageType_e
 	{
 	    BPL_DSA_STATE,                //!< DSA runtime status.

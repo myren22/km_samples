@@ -1,4 +1,4 @@
-package ex_Java18;
+package ex_java18;
 
 import java.io.*;
 import java.net.*;

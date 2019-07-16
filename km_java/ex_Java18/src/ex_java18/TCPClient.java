@@ -1,4 +1,4 @@
-package ex_Java18;
+package ex_java18;
 
 import java.io.*;
 import java.net.*;
@@ -19,11 +19,11 @@ class TCPClient {
 //		portNumber=8080;
 //		ipNumber = "100.88.70.64";
 		
-		portNumber=8091;
-		ipNumber = "192.168.42.129";
+//		portNumber=8091;
+//		ipNumber = "192.168.42.129";
 		
-//		portNumber=50001;
-//		ipNumber = "0.0.0.0";
+		portNumber=50002;
+		ipNumber = "0.0.0.0";
 		
 		
 		Socket clientSocket = new Socket(ipNumber, portNumber);
@@ -57,10 +57,8 @@ class TCPClient {
 		else if(scenarioCon==2){
 			//client listens to server, then sends message. loop these 2 steps.
 			
-			
-			
 			int count = 0;
-			while(count<20) {
+			while(count<200) {
 				System.out.println("Waiting for response from server...");
 				modifiedSentence = inFromServer.readLine();
 				System.out.println("  Response:"+ modifiedSentence);
