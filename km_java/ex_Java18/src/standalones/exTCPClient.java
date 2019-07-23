@@ -1,26 +1,17 @@
-package ex_java18;
+package standalones;
 
 import java.io.*;
 import java.net.*;
 
-class TCPClient {
+class exTCPClient {
 	public static void main(String argv[]) throws Exception {
-		System.out.println("TCPClient start.");
+		System.out.println("exTCPClient start.");
 		String sentence;
 		String modifiedSentence;
 		BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
-		System.out.println("TCPClient new inputStreamRead system.in.");
+		System.out.println("exTCPClient new inputStreamRead system.in.");
 		String ipNumber;
-		int portNumber;
-		
-//		portNumber= 8080;
-//		ipNumber= "10.0.0.126";
-		
-//		portNumber=8080;
-//		ipNumber = "100.88.70.64";
-		
-//		portNumber=8091;
-//		ipNumber = "192.168.42.129";
+		int portNumber;		
 		
 		portNumber=50002;
 		ipNumber = "0.0.0.0";
@@ -30,11 +21,12 @@ class TCPClient {
 		DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
 		BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 		
+		
 		//do things. Read User Line -> Write Bytes to Server ->  Read in From Server -> Print response from server.
 		int scenarioCon=2;
 		
 		if(scenarioCon==0){
-			System.out.println("TCPClient readLine now[PLEASE TYPE INTO CONSOLOLE HERE]\nMSG:");
+			System.out.println("exTCPClient readLine now[PLEASE TYPE INTO CONSOLOLE HERE]\nMSG:");
 			sentence = inFromUser.readLine();
 		}
 		else if(scenarioCon==1){
@@ -42,17 +34,16 @@ class TCPClient {
 			
 			int count = 0;
 			while(count<20) {
-				System.out.println("TCPClient SENDING MSG \"Hello from eclipse windows server!\"\nMSG:");
+				System.out.println("exTCPClient SENDING MSG \"Hello from eclipse windows server!\"\nMSG:");
 				sentence = "Hello from eclipse windows server!";
-				System.out.println("TCPClient write.");
+				System.out.println("exTCPClient write.");
 				System.out.println("  Sent:>"+sentence);
 				outToServer.writeBytes(sentence + '\n');  //new line is required to end message
 				System.out.println("Waiting for response from server...");
 				modifiedSentence = inFromServer.readLine();
 				System.out.println("  Response:"+ modifiedSentence);
 				count++;
-			}
-			
+			}			
 		}
 		else if(scenarioCon==2){
 			//client listens to server, then sends message. loop these 2 steps.
@@ -63,9 +54,9 @@ class TCPClient {
 				modifiedSentence = inFromServer.readLine();
 				System.out.println("  Response:"+ modifiedSentence);
 				
-				System.out.println("TCPClient SENDING MSG \"Hello from eclipse windows server!\"\nMSG:");
+				System.out.println("exTCPClient SENDING MSG \"Hello from eclipse windows server!\"\nMSG:");
 				sentence = "Hello from eclipse windows server!\n";
-				System.out.println("TCPClient write.");
+				System.out.println("exTCPClient write.");
 				System.out.println("  Sent:>"+sentence);
 				outToServer.writeBytes(sentence );  //new line is required to end message
 				outToServer.flush();
@@ -75,7 +66,7 @@ class TCPClient {
 		}
 		
 		
-//		System.out.println("TCPClient write.");
+//		System.out.println("exTCPClient write.");
 //		System.out.println("  Sent:>"+sentence);
 //		outToServer.writeBytes(sentence + '\n');  //new line is required to end message
 //		System.out.println("Waiting for response from server...");
