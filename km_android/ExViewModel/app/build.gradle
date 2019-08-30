@@ -1,0 +1,70 @@
+apply plugin: 'com.android.application'
+
+android {
+
+
+    compileSdkVersion 27        //Android API level. Allows use of this and lower. Set Max
+    defaultConfig {
+        applicationId "com.km.exviewmodel"
+        minSdkVersion 23
+        targetSdkVersion 27     //API level used for testing.
+        versionCode 1           //A version number for our app
+        versionName "1.0"       //A user friendly format of the version number.
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    def lifecycle_version = '1.1.1'
+    def room_version = '1.1.1'
+
+//    def lifecycle_version = '2.2.0-alpha03'
+//    def room_version = '2.2.0-alpha03'
+
+    //App compatibility
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0-rc01'
+
+//    implementation 'com.android.support:appcompat-v7:27.1.1'
+////    implementation 'androidx.appcompat:appcompat'
+//    implementation 'com.android.support:design-v7:27.1.1'   //design or materal
+////    implementation 'com.google.android.material:material-rc01'
+//    implementation 'com.android.support:cardview-v7:27.1.1'  //for recyclerview
+////    implementation 'androidx.cardview:cardview'
+
+    //constraint layout
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+
+    //Test implementation
+    testImplementation 'junit:junit:4.12'
+//    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2' //3.0.2
+
+
+    //LifeCycle components - ViewModel and LiveData
+//    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+//    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
+
+    //Room components
+//    implementation "androidx.room:room-runtime:$room_version"
+//    annotationProcessor "androidx.room:room-compiler:$room_version"
+    implementation "android.arch.persistence.room:runtime:1.1.1"
+    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
+}
+
+//LifeCycle
+//Room
